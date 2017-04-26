@@ -130,7 +130,6 @@ int DLGpuSoftmaxCrossEntropy(const DLArrayHandle input_a,
   // Conservatively allow max 16KB shared memory.
   assert(nrow <= 1024 * 4);
   int ncol = input_a->shape[1];
-  int count = nrow * ncol;
   const float *input_data_a = (const float *)input_a->data;
   const float *input_data_b = (const float *)input_b->data;
   float *output_data = (float *)output->data;
