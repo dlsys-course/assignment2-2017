@@ -1,10 +1,3 @@
-export PYTHONPATH="${PYTHONPATH}:/path/to/gpu_executor/python"
-
-python tests/test_array.py
-
-Use Python ctypes to expose C API
-Implement simple GPU kernels for DL ops.
-
 # Assignment 2: GPU Graph Executor
 
 In this assignment, we would implement a GPU graph executor that can train simple neural nets such as multilayer perceptron models.
@@ -16,18 +9,32 @@ Key concepts and data structures that we would need to implement are
 - GPU executor memory management for computation graph.
 - GPU kernel implementations of common kernels, e.g. Relu, MatMul, Softmax.
 
-## Overview of Module API and Data Structures
+## Overview of Module
+- python/dlsys/autodiff.py: Implements computation graph, autodiff, GPU/Numpy Executor.
+- python/dlsys/gpu_op.py: Exposes Python function to call GPU kernels via ctypes.
+- python/dlsys/ndarray.py: Exposes Python GPU array API.
 
-### Special notes here:
+- src/dlarray.h: header for GPU array.
+- src/c_runtime_api.h: C API header for GPU array and GPU kernels.
+- src/gpu_op.cu: cuda implementation of kernels 
 
 ## What you need to do?
 Understand the code skeleton and tests. Fill in implementation wherever marked """TODO: Your code here""".
-There are only files with TODOs for you.
+There are only two files with TODOs for you.
 - python/dlsys/autodiff.py
 - src/gpu_op.cu
 
+### Special note
+Do not change Makefile to use CuDNN for GPU kernels.
+
 ## Tests cases
 We have 12 tests in tests/test_gpu_op.py. We would grade your GPU kernel implementations based on those tests.
+
+Compile
+```bash
+export PYTHONPATH="${PYTHONPATH}:/path/to/gpu_executor/python"
+make
+```
 
 Run all tests with
 ```bash
@@ -52,15 +59,16 @@ python tests/mnist_dlsys.py -l -m mlp -c gpu
 ```
 
 If your implementation is correct, you would see
-- generally decreasing loss value with epochs
-- your dev set accuracy for logreg about 92% and MLP about 97% for mnist
+- generally decreasing loss value with epochs, similar loss value decrease for numpy and GPU execution
+- your dev set accuracy for logreg about 92% and MLP about 97% for mnist using the parameters we provided in mnist_dlsys.py
+- GPU execution being noticeably faster than numpy. However, if you do not reuse memory across executor.runs, your GPU execution would incur overhead in memory allocation.
 
 Profile GPU execution with
 ```bash
 nvprof python tests/mnist_dlsys.py -l -m mlp -c gpu
 ```
 
-If GPU memory management is done right, e.g. reuse GPU memory across each executor.run, your cudaMalloc "Calls" should not increase with number of training epochs.
+If GPU memory management is done right, e.g. reuse GPU memory across each executor.run, your cudaMalloc "Calls" should not increase with number of training epochs (set with -e option).
 ```bash
 # Run 10 epochs
 nvprof python tests/mnist_dlsys.py -l -m mlp -c gpu -e 10
@@ -76,7 +84,6 @@ nvprof python tests/mnist_dlsys.py -l -m mlp -c gpu -e 30
 ```
 
 
-### Bonus points
 
 ### Grading rubrics
 - test_gpu_op.test_array_set ... 1 pt
@@ -86,17 +93,18 @@ nvprof python tests/mnist_dlsys.py -l -m mlp -c gpu -e 30
 - test_gpu_op.test_matrix_elementwise_add_by_const ... 1 pt
 - test_gpu_op.test_matrix_elementwise_multiply ... 1 pt
 - test_gpu_op.test_matrix_elementwise_multiply_by_const ... 1 pt
-- test_gpu_op.test_matrix_multiply ... 4 pt
+- test_gpu_op.test_matrix_multiply ... 2 pt
 - test_gpu_op.test_relu ... 1 pt
 - test_gpu_op.test_relu_gradient ... 1 pt
-- test_gpu_op.test_softmax ... 2 pt
+- test_gpu_op.test_softmax ... 1 pt
 - test_gpu_op.test_softmax_cross_entropy ... Implemented by us.
 
-- bonus (?) ... ? pt
+- mnist with MLP using numpy ... 1 pt
+- mnist with MLP using gpu ... 2 pt
 
 ## Submitting your work
 
-Please submit your autodiff.tar.gz to Catalyst dropbox under [Assignment 2](https://catalyst.uw.edu/collectit/assignment/arvindk/40126/159878).
+Please submit your gpu_executor.tar.gz to Catalyst dropbox under [Assignment 2](https://catalyst.uw.edu/collectit/assignment/arvindk/40126/159878).
 ```bash
 # compress
 tar czvf gpu_executor.tar.gz gpu_executor/
