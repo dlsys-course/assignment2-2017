@@ -40,7 +40,7 @@ We have 12 tests in tests/test_gpu_op.py. We would grade your GPU kernel impleme
 
 Compile
 ```bash
-export PYTHONPATH="${PYTHONPATH}:/path/to/gpu_executor/python"
+export PYTHONPATH="${PYTHONPATH}:/path/to/assignment2/python"
 make
 ```
 
