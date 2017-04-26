@@ -129,7 +129,7 @@ def mnist_logreg(executor_ctx=None, num_epochs=10, print_loss_val_each_epoch=Fal
                 sgd_update_gpu(b1_val, grad_b1_val, lr)
         if print_loss_val_each_epoch:
             if isinstance(loss_val, ndarray.NDArray):
-                print loss_val.asnumpy()
+                print(loss_val.asnumpy())
             else:
                 print(loss_val)
 
@@ -261,7 +261,7 @@ def mnist_mlp(executor_ctx=None, num_epochs=10, print_loss_val_each_epoch=False)
                 sgd_update_gpu(b3_val, grad_b3_val, lr)
         if print_loss_val_each_epoch:
             if isinstance(loss_val, ndarray.NDArray):
-                print loss_val.asnumpy()
+                print(loss_val.asnumpy())
             else:
                 print(loss_val)
 
