@@ -2,7 +2,7 @@
 
 In this assignment, we would implement a GPU graph executor that can train simple neural nets such as multilayer perceptron models.
 
-Our code should be able to construct a simple MLP model using computation graph API implemented in Assignment 1, and train and test the model using either numpy or GPU.
+Our code should be able to construct a simple MLP model using computation graph API implemented in Assignment 1, and train and test the model using either numpy or GPU. If you implement everything correctly, you would see nice speedup in training neural nets with GPU executor compared to numpy executor, as expected.
 
 Key concepts and data structures that we would need to implement are
 - Shape inference on computation graph given input shapes.
@@ -20,6 +20,7 @@ Key concepts and data structures that we would need to implement are
 
 ## What you need to do?
 Understand the code skeleton and tests. Fill in implementation wherever marked `"""TODO: Your code here"""`.
+
 There are only two files with TODOs for you.
 - python/dlsys/autodiff.py
 - src/gpu_op.cu
@@ -36,7 +37,7 @@ Do not change Makefile to use cuDNN for GPU kernels.
   ```
 
 ## Tests cases
-We have 12 tests in tests/test_gpu_op.py. We would grade your GPU kernel implementations based on those tests.
+We have 12 tests in tests/test_gpu_op.py. We would grade your GPU kernel implementations based on those tests. We would also grade your implementation of shape inference and memory management based on tests/mnist_dlsys.py.
 
 Compile
 ```bash
@@ -115,5 +116,5 @@ nvprof python tests/mnist_dlsys.py -l -m mlp -c gpu -e 30
 Please submit your assignment2.tar.gz to Catalyst dropbox under [Assignment 2](https://catalyst.uw.edu/collectit/assignment/arvindk/40126/159878). Due: 5/9/2017, 5pm.
 ```bash
 # compress
-tar czvf gpu_executor.tar.gz gpu_executor/
+tar czvf assignment2.tar.gz assignment2/
 ```
