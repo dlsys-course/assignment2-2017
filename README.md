@@ -19,13 +19,21 @@ Key concepts and data structures that we would need to implement are
 - src/gpu_op.cu: cuda implementation of kernels 
 
 ## What you need to do?
-Understand the code skeleton and tests. Fill in implementation wherever marked """TODO: Your code here""".
+Understand the code skeleton and tests. Fill in implementation wherever marked `"""TODO: Your code here"""`.
 There are only two files with TODOs for you.
 - python/dlsys/autodiff.py
 - src/gpu_op.cu
 
 ### Special note
-Do not change Makefile to use CuDNN for GPU kernels.
+Do not change Makefile to use cuDNN for GPU kernels.
+
+## Environment setup
+- If you don't have a GPU machine, you can use AWS GPU instance. AWS setup instructions see [lab1](https://github.com/dlsys-course/lab1).
+- Otherwise, you need to install CUDA toolkit ([instructions](http://docs.nvidia.com/cuda/cuda-installation-guide-linux/)) on your own machine, and set the environment variables.
+  ```bash
+  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+  export PATH=/usr/local/cuda/bin:$PATH
+  ```
 
 ## Tests cases
 We have 12 tests in tests/test_gpu_op.py. We would grade your GPU kernel implementations based on those tests.
@@ -104,7 +112,7 @@ nvprof python tests/mnist_dlsys.py -l -m mlp -c gpu -e 30
 
 ## Submitting your work
 
-Please submit your gpu_executor.tar.gz to Catalyst dropbox under [Assignment 2](https://catalyst.uw.edu/collectit/assignment/arvindk/40126/159878).
+Please submit your assignment2.tar.gz to Catalyst dropbox under [Assignment 2](https://catalyst.uw.edu/collectit/assignment/arvindk/40126/159878). Due: 5/9/2017, 5pm.
 ```bash
 # compress
 tar czvf gpu_executor.tar.gz gpu_executor/
