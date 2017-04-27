@@ -568,7 +568,6 @@ class Executor(object):
 
         Parameters
         ----------
-        node: node whose shape is being inferred.
         feed_shapes: node->shapes mapping for feed_dict nodes.
         """
         """TODO: Your code here"""
@@ -588,7 +587,6 @@ class Executor(object):
 
         Parameters
         ----------
-        node: node whose shape is being inferred.
         feed_shapes: node->shapes mapping for feed_dict nodes.
         """
         """TODO: Your code here"""
